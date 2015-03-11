@@ -1,5 +1,5 @@
 function dataset = cwEPRdatasetMapInfo(dataset,info)
-% CWEPRDATASETMAPINFO Install cwEPR Toolbox on your system
+% CWEPRDATASETMAPINFO Puts information in info into dataset
 %
 % Usage
 %   dataset = cwEPRdatasetMapInfo(dataset,info)
