@@ -59,8 +59,9 @@ if ~exist('B0','var')
 end
 
 
-% Put Spectrum and B0 into dataset
-dataset.data = spectrum;
+% Put Spectrum and B0 into dataset and into origdata
+dataset.data = spectrum';
+dataset.origdata = dataset.data;
 dataset.axes(1).values = B0;
 
     
