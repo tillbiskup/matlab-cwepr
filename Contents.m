@@ -1,2 +1,2 @@
 % cwepr Toolbox
-% Version 0.0.4 20-Mar-2015
+% Version 0.0.6 24-Mar-2015

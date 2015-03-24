@@ -28,7 +28,7 @@ function dataset = cwEPRdatasetCreate(varargin)
 % SEE ALSO: commonDatasetCreate, commonHistoryCreate, cwEPRhistoryCreate
 
 % Copyright (c) 2015, Till Biskup
-% 2015-03-06
+% 2015-03-24
 
 % Assign output parameter
 dataset = struct();
@@ -45,7 +45,7 @@ p.addParamValue('hasOptionalFields',false,@islogical);
 p.parse(varargin{:});
 
 % Define version of dataset structure
-structureVersion = '0.1';
+structureVersion = '0.2';
 
 % Call function from common toolbox
 commonDataset = commonDatasetCreate(...
