@@ -74,22 +74,28 @@ history.functionname = mfilename();
 history.kind = 'BaselineSubstraction';
 history.parameters = {p.Results.kind, area, p.Results.degree, coeffvector};
 
-% Calculate some things
-% for index = 1:length(dataset.axes(1).values);
-%     if area(index) == 1
-%         Einser(index) = index;
-%     else
-%         Nuller(index) = index;
-%     end
-% end
 
+areIndexnum = [];
+j=1;
+% 
+for k=1:length(area)
+ areaIndex(k) =area(k);
+if k>1&&areaIndex(k-1) ~= areaIndex(k)
+    areIndexnum(j)  = k;
+    j=j+1;
+end
+
+ %0 areaField = 
+end
+
+das= areIndexnum
 % Write Report stuff
 history.tplVariables.Kind = p.Results.kind;
 history.tplVariables.Degree = p.Results.degree;
 history.tplVariables.Coefficients = coeffvector;
 history.tplVariables.resSumOfSquares = resSumOfSquares;
-%history.tplVariables.areaIndex = areaindex;
+%history.tplVariables.areaIndex = areaIndex;
 %history.tplVariables.areaField = areaField;
 
-
+dataset.history=history;
 end

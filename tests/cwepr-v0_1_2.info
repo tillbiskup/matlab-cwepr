@@ -1,0 +1,84 @@
+cwEPR Info file - v. 0.1.2 (2015-03-03)
+
+GENERAL
+Filename:               
+Date start:             2014-12-01
+Date end:               2014-12-01
+Time start:             10:00:00
+Time end:               10:15:00
+Operator:               Max Mustermann
+Label:                  
+Purpose:                Erste cw-EPR-Messungen an abc aus x.y
+
+SAMPLE
+Name:                   abc aus x.y 
+Description:            
+Solvent:                 
+Preparation:            
+Tube:                   3.8 x 3 x 180 mm
+
+EXPERIMENT
+Type:                   field-sweep|power-sweep|kinetics|temperature-sweep|...
+Runs:                   1
+Variable parameter:     attenuation|temperature|...
+Increment:              xxx
+
+SPECTROMETER
+Model:                  Bruker EMX
+Software:               32-bit WIN-EPR Acquisition Version 3.0 (01 July 1998)
+
+MAGNETIC FIELD
+Field probe type:       Hall 
+Field probe model:      xxx 
+Start:                  290 mT
+Stop:                   390 mT
+Step:                   1024/1000 mT
+Sequence:               up
+Controller:             Bruker 032 T
+Power supply:           laboratory-built
+
+BRIDGE
+Model:                  Bruker ER 041 MR
+Controller:             Bruker EMX 048 T
+Attenuation:            40 dB
+Power:                  19.92 uW
+Detection:              diode
+Frequency counter:      Systron Donner 6520 Microwave Counter
+MW frequency:           9.39610 GHz
+Q value:                N/A
+
+SIGNAL CHANNEL
+Model:                  Bruker EMX Signal Channel SCT/H
+Modulation amplifier:   Bruker EMX 120 Mod. Amp.
+Accumulations:          10
+Modulation frequency:   100 kHz
+Modulation amplitude:   0.3 mT
+Receiver gain:          5e5
+Conversion time:        81.92 ms
+Time constant:          81.92 ms
+Phase:                  0 deg
+
+PROBEHEAD
+Type:                   SHQ
+Model:                  Bruker 4122-SHQ-E
+Coupling:               critical
+
+TEMPERATURE
+Temperature:            20 K
+Controller:             Oxford ITC 503
+Cryostat:               Oxford ESR900
+Cryogen:                LHe
+
+FIELD CALIBRATION
+Filename:               optional
+Field probe type:       Hall|Gaussmeter|Teslameter 
+Field probe model:      xxx 
+Standard:               LiLiF
+Signal field:           xx G       
+MW Frequency:           xx GHz
+
+BACKGROUND
+Filename:               optional
+Type:                   empty resonator|empty tube|solvent
+
+COMMENT
