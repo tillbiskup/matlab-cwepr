@@ -28,7 +28,7 @@ function dataset = cwEPRsubstractBaseline(dataset, varargin)
 
 % Copyright (c) 2015, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2015-03-19
+% 2015-11-04
 
 
 kindcell = {'polynomial','exponential'};
@@ -91,5 +91,6 @@ history.tplVariables.resSumOfSquares = resSumOfSquares;
 %history.tplVariables.areaIndex = areaindex;
 %history.tplVariables.areaField = areaField;
 
+dataset.history{end+1} = history;
 
 end
