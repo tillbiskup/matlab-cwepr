@@ -12,8 +12,9 @@ function dataset = cwEPRimport(filename)
 %            structure containing data and additional fields
 %
 
-% Copyright (c) 2015, Till Biskup, Deborah Meyer, Simona Huwiler 
-% 2015-03-11
+% Copyright (c) 2015, Till Biskup
+% Copyright (c) 2015, Deborah Meyer
+% 2015-11-04
 
 % Create dataset
 dataset = cwEPRdatasetCreate;
@@ -62,21 +63,21 @@ end
 % Put Spectrum and B0 into dataset and into origdata
 dataset.data = spectrum';
 dataset.origdata = dataset.data;
-dataset.axes(1).values = B0;
+dataset.axes.data(1).values = B0;
 
     
 
 % Set other parameters in dataset
-dataset.axes(1).measure = 'magnetic field';
-dataset.axes(1).unit = 'mT';
+dataset.axes.data(1).measure = 'magnetic field';
+dataset.axes.data(1).unit = 'mT';
 if min(size(dataset.data)) >1
-    dataset.axes(2).measure = '';
-    dataset.axes(2).unit = '';
-    dataset.axes(3).measure = 'intensity';
-    dataset.axes(3).unit = 'a.u.';
+    dataset.axes.data(2).measure = '';
+    dataset.axes.data(2).unit = '';
+    dataset.axes.data(3).measure = 'intensity';
+    dataset.axes.data(3).unit = 'a.u.';
 else
-    dataset.axes(2).measure = 'intensity';
-    dataset.axes(2).unit = 'a.u.';
+    dataset.axes.data(2).measure = 'intensity';
+    dataset.axes.data(2).unit = 'a.u.';
 end
 
 end
