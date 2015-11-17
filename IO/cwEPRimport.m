@@ -23,7 +23,7 @@ function dataset = cwEPRimport(filename,varargin)
 % 2015-11-17
 
 % Create dataset
-dataset = cwEPRdatasetCreate;
+cwEPRdataset = cwEPRdatasetCreate;
 
 try
     % Parse input arguments using the inputParser functionality
@@ -45,39 +45,15 @@ filename = fullfile(path,name);
 
 try
     % Loading EPR spectra (*.par, *.spc, Bruker EMX format)
-    % command: eprload
-    % For help, type "doc eprload" on the Matlab command line
-    [B0,spectrum] = eprload(filename);
-    % NOTE: "axes" might be a cell array, if we have more than one
-    %       dimension (e.g., power sweep)
-    if iscell(B0)
-        B0 = B0{1};
-    end
-    % Convert G => mT
-    B0 = B0/10;
-catch %#ok<CTCH>
-    try
-        extensions = {'.txt','.dat'};
-        for extension = 1:length(extensions)
-            fullfilename = [filename extensions{extension}];
-            if exist(fullfilename,'file')
-                data = load(fullfilename);
-                B0 = data(:,1)';
-                spectrum = data(:,2);
-                break;
-            end
-        end
-    catch
-        warning('Unknown file format. Nothing loaded!');
-        return;
-    end
-end
-
-% Check whether we have loaded something, if not, complain and exit
-if ~exist('B0','var')
-    warning('File %s not found - nothing loaded',filename);
+    % command: EPRimport from EPR toolbox
+    EPRdataset = EPRimport(filename);
+catch
+    warning('Unknown file format. Nothing loaded!');
     return;
 end
+
+% Put cwEPRdataset into EPRdatset
+dataset = commonStructCopy(cwEPRdataset,EPRdataset);
 
 % Check for info file
 if p.Results.loadInfo
@@ -90,24 +66,6 @@ if p.Results.loadInfo
     end 
 end
 
-% Put Spectrum and B0 into dataset and into origdata
-dataset.data = spectrum';
-dataset.origdata = dataset.data;
-dataset.axes.data(1).values = B0;
 
-    
-
-% Set other parameters in dataset
-dataset.axes.data(1).measure = 'magnetic field';
-dataset.axes.data(1).unit = 'mT';
-if min(size(dataset.data)) >1
-    dataset.axes.data(2).measure = '';
-    dataset.axes.data(2).unit = '';
-    dataset.axes.data(3).measure = 'intensity';
-    dataset.axes.data(3).unit = 'a.u.';
-else
-    dataset.axes.data(2).measure = 'intensity';
-    dataset.axes.data(2).unit = 'a.u.';
-end
 
 end
