@@ -21,7 +21,13 @@ function dataset = cwEPRimport(filename,varargin)
 %   RCnorm   - boolean
 %              Normalise for receiver gain (RC), aka divide intensities of
 %              spectrum by RC value.
-%              Default: false
+%              Default: true
+%
+%   SCnorm   - boolean
+%              Normalise for number of scans, aka divide by this number
+%              Default: true
+%
+% SEE ALSO: EPRimport
 
 % Copyright (c) 2015, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
@@ -38,7 +44,8 @@ try
     p.StructExpand = true;      % Enable passing arguments in a structure
     p.addRequired('filename', @(x)ischar(x));
     p.addParamValue('loadInfo',true,@islogical);
-    p.addParamValue('RCnorm',false,@islogical);
+    p.addParamValue('RCnorm',true,@islogical);
+    p.addParamValue('SCnorm',true,@islogical);
     p.parse(filename,varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
