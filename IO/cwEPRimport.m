@@ -17,13 +17,18 @@ function dataset = cwEPRimport(filename,varargin)
 %   loadInfo - boolean
 %              Try to load (and map) accompanying info file
 %              Default: true
+%
+%   RCnorm   - boolean
+%              Normalise for receiver gain (RC), aka divide intensities of
+%              spectrum by RC value.
+%              Default: false
 
 % Copyright (c) 2015, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
 % 2015-11-17
 
 % Create dataset
-cwEPRdataset = cwEPRdatasetCreate;
+dataset = cwEPRdatasetCreate;
 
 try
     % Parse input arguments using the inputParser functionality
@@ -33,6 +38,7 @@ try
     p.StructExpand = true;      % Enable passing arguments in a structure
     p.addRequired('filename', @(x)ischar(x));
     p.addParamValue('loadInfo',true,@islogical);
+    p.addParamValue('RCnorm',false,@islogical);
     p.parse(filename,varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
@@ -46,14 +52,14 @@ filename = fullfile(path,name);
 try
     % Loading EPR spectra (*.par, *.spc, Bruker EMX format)
     % command: EPRimport from EPR toolbox
-    EPRdataset = EPRimport(filename);
+    EPRdataset = EPRimport(filename,'RCnorm',p.Results.RCnorm);
 catch
     warning('Unknown file format. Nothing loaded!');
     return;
 end
 
 % Put cwEPRdataset into EPRdatset
-dataset = commonStructCopy(cwEPRdataset,EPRdataset);
+dataset = commonStructCopy(dataset,EPRdataset);
 
 % Check for info file
 if p.Results.loadInfo

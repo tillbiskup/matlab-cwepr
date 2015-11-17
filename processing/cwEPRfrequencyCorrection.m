@@ -5,17 +5,15 @@ function dataset = cwEPRfrequencyCorrection(dataset,varargin)
 %
 % Usage
 %   dataset = cwEPRfrequencyCorrection(dataset)
-%   dataset = cwEPRfrequencyCorrection(dataset,NewFrequency)
+%   dataset = cwEPRfrequencyCorrection(dataset,newFrequency)
 %
 %   dataset      - stucture
 %                  Dataset complying with specification of toolbox dataset
 %                  structure
 %
-%   NewFrequency - scalar
-%                  Frequency in GHz to witch correction shall take place.
-%                  If no value is provided 9.7 GHz is used.
-%
-%
+%   newFrequency - scalar
+%                  Frequency in GHz to which correction shall take place.
+%                  Default: 9.70 GHz
  
 % Copyright (c) 2015, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
@@ -55,7 +53,10 @@ mTnewNotEquidistant = EPRg2mT(g, fqnew);
 
 % Do the interpolation thingy
 mTnewEquidistant = linspace(mTnewNotEquidistant(1),mTnewNotEquidistant(end),length(mTnewNotEquidistant)); 
-datanew = interp1(mTnewNotEquidistant,dataset.data,mTnewEquidistant,'linear');
+for slice = 1:size(dataset.data,1)
+    dataset.data(slice,:) = interp1(mTnewNotEquidistant,...
+        dataset.data(slice,:),mTnewEquidistant,'linear');
+end
 
 % Create and fill History
 history = cwEPRhistoryCreate();
@@ -69,7 +70,6 @@ history.parameters = {parser.Results.NewFrequency};
 
 % Write back to dataset
 dataset.axes.data(1).values = mTnewEquidistant;
-dataset.data = datanew;
 dataset.parameters.bridge.MWfrequency.value = parser.Results.NewFrequency;
 dataset.history{end+1} = history;
 
