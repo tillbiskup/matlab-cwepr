@@ -2,7 +2,7 @@ function dataset = cwEPRdatasetMapInfo(dataset,info,format)
 % CWEPRDATASETMAPINFO Puts information in info into dataset
 %
 % Usage
-%   dataset = cwEPRdatasetMapInfo(dataset,info)
+%   dataset = cwEPRdatasetMapInfo(dataset,info,format)
 %
 %   dataset - stucture
 %             Dataset complying with specification of toolbox dataset
@@ -19,7 +19,7 @@ function dataset = cwEPRdatasetMapInfo(dataset,info,format)
 
 % Copyright (c) 2015, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2015-04-09
+% 2015-11-17
 
 dataset = commonDatasetMapInfo(dataset,info,format);
 
