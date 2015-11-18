@@ -16,6 +16,8 @@ function characteristics = cwEPRspectralCharacteristics(dataset,varargin)
 % NOTE: This routine assumes basically baseline-free spectra and calculates
 %       just a few numbers that might be of interest for a 0th-order
 %       analysis of cw-EPR spectra.
+%
+% SEE ALSO: cwEPRspectralCharacteristicsDisp
 
 % Copyright (c) 2015, Till Biskup
 % 2015-11-18

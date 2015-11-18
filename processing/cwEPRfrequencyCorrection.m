@@ -26,7 +26,7 @@ try
     p.KeepUnmatched = true;     % Enable errors on unmatched arguments
     p.StructExpand = true;      % Enable passing arguments in a structure
     p.addRequired('dataset',@(x)isstruct(x));
-    p.addOptional('NewFrequency',9.7,@(x)isscalar(x));
+    p.addOptional('newFrequency',9.7,@(x)isscalar(x));
     p.parse(dataset,varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
@@ -52,11 +52,12 @@ fqold = 10^9 * dataset.parameters.bridge.MWfrequency.value;
 g = EPRmT2g(mTold,fqold);
 
 % convert back to mT with newFrequency
-fqnew = 10^9 * p.Results.NewFrequency;
+fqnew = 10^9 * p.Results.newFrequency;
 mTnewNotEquidistant = EPRg2mT(g, fqnew);
 
 % Do the interpolation thingy
-mTnewEquidistant = linspace(mTnewNotEquidistant(1),mTnewNotEquidistant(end),length(mTnewNotEquidistant)); 
+mTnewEquidistant = linspace(mTnewNotEquidistant(1),...
+    mTnewNotEquidistant(end),length(mTnewNotEquidistant)); 
 for slice = 1:size(dataset.data,1)
     dataset.data(slice,:) = interp1(mTnewNotEquidistant,...
         dataset.data(slice,:),mTnewEquidistant,'linear');
@@ -64,17 +65,18 @@ end
 
 % Create and fill History
 history = cwEPRhistoryCreate();
-history.functionName = mfilename;
 history.kind = 'Frequency correction';
+history.purpose = 'Correct dataset to given MW frequency';
 history.reversible = false;
-history.tplVariables.OldFrequency = dataset.parameters.bridge.MWfrequency.value;
-history.tplVariables.NewFrequency = p.Results.NewFrequency;
-history.parameters = {p.Results.NewFrequency};
+history.tplVariables.oldFrequency = ...
+    dataset.parameters.bridge.MWfrequency.value;
+history.tplVariables.newFrequency = p.Results.newFrequency;
+history.parameters = {p.Results.newFrequency};
 
 
 % Write back to dataset
 dataset.axes.data(1).values = mTnewEquidistant;
-dataset.parameters.bridge.MWfrequency.value = p.Results.NewFrequency;
+dataset.parameters.bridge.MWfrequency.value = p.Results.newFrequency;
 dataset.history{end+1} = history;
 
 end

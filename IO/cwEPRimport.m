@@ -44,7 +44,7 @@ try
     p.StructExpand = true;      % Enable passing arguments in a structure
     p.addRequired('filename', @(x)ischar(x));
     p.addParamValue('loadInfo',true,@islogical);
-    p.addParamValue('RCnorm',true,@islogical);
+    p.addParamValue('RGnorm',true,@islogical);
     p.addParamValue('SCnorm',true,@islogical);
     p.parse(filename,varargin{:});
 catch exception
@@ -59,7 +59,7 @@ filename = fullfile(path,name);
 try
     % Loading EPR spectra (*.par, *.spc, Bruker EMX format)
     % command: EPRimport from EPR toolbox
-    EPRdataset = EPRimport(filename,'RCnorm',p.Results.RCnorm);
+    EPRdataset = EPRimport(filename,'vendorFields',true);
 catch
     warning('Unknown file format. Nothing loaded!');
     return;
@@ -79,6 +79,20 @@ if p.Results.loadInfo
     end 
 end
 
+% TODO: Map vendor parameters to dataset structure, thus overwriting info
+% file values, if they were loaded.
 
+% Remove vendor fields
+dataset = rmfield(dataset,'vendor');
+
+% Perform receiver gain normalisation
+if p.Results.RGnorm
+    dataset = cwEPRnormaliseReceiverGain(dataset);
+end
+
+% Perform normalisation for number of scans
+if p.Results.SCnorm
+    dataset = cwEPRnormaliseScans(dataset);
+end
 
 end

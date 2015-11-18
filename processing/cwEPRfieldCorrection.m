@@ -37,8 +37,8 @@ dataset.axes.data(1).values = dataset.axes.data(1).values + deltaB0;
 
 % Write history
 history = cwEPRhistoryCreate();
-history.functionName = mfilename;
 history.kind = 'Field correction';
+history.purpose = 'Linearly correct field axis via measured standard';
 history.parameters = {p.Results.deltaB0};
 dataset.history{end+1} = history;
 
