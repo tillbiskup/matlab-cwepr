@@ -24,7 +24,7 @@ function cwEPRpowerSweepAnalysisCLI
 % Acknowledgements: The plot of step three was an idea of Lorenz Heidinger.
 
 % Copyright (c) 2015, Till Biskup
-% 2015-11-11
+% 2015-11-24
 
 % Welcome message with a bit of explanation to guide the user
 welcomeMessage = {...
@@ -56,21 +56,22 @@ cellfun(@(x)fprintf('  %s\n',x),welcomeMessage);
 fileName = '';
 while isempty(fileName)
     fileName = cliInput('Filename of file containing powerSweep data');
-    if ~exist(fileName,'file')
+    data = cwEPRimport(fileName);
+    if isempty(data.data)
         fileName = '';
     end
 end
 
-data = EPRbrukerSPCimport(fileName);
+%data = EPRbrukerSPCimport(fileName);
 
 % 2nd step: Plot data and ask user for field index
 figure();
-plot(data.data);
-set(gca,'XLim',[1 size(data.data,1)])
+plot(data.data');
+set(gca,'XLim',[1 size(data.data,2)]);
 xlabel('{\it index}')
 ylabel('{\it signal intensity}');
 
-[~,fieldIndex] = max(data.data(:,1));
+[~,fieldIndex] = max(data.data(1,:));
 
 fieldIndex = cliInput(...
     'Field index used for further analysis',...
@@ -78,8 +79,8 @@ fieldIndex = cliInput(...
 
 % 3rd step: Plot sqrt(power) vs. EPR intensity and ask user for number of
 %           points used for the linear regression
-sqrtP = sqrt(EPRdB2mW(data.axes(2).values));
-eprI = data.data(fieldIndex,:);
+sqrtP = sqrt(EPRdB2mW(data.axes.data(2).values));
+eprI = data.data(:,fieldIndex)';
 figure();
 plot(sqrtP,eprI,'d-');
 xlabel('sqrt({\itP}) / mW')
@@ -103,7 +104,7 @@ xlabel('sqrt({\itP}) / mW')
 ylabel('{\it signal intensity}');
 
 figure();
-plot(data.axes(2).values,linReg-eprI,'d-');
+plot(data.axes.data(2).values,linReg-eprI,'d-');
 xlim = get(gca,'XLim');
 hold on; 
 plot([0 50],[0 0],'k:'); 
@@ -111,6 +112,6 @@ hold off;
 set(gca,'XLim',xlim);
 xlabel('{\it MW attenuation} / dB')
 ylabel('{\it deviation from linear regression}');
-set(gca,'XLim',[min(data.axes(2).values)-1 max(data.axes(2).values)+1]);
+set(gca,'XLim',[min(data.axes.data(2).values)-1 max(data.axes.data(2).values)+1]);
 
 end
