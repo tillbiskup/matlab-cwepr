@@ -92,7 +92,7 @@ nPtLinReg = cliInput(...
 
 % 4th step: Plot sqrt(power) vs. EPR intensity and deviation of EPR
 % intensity from linear regression
-coeff = polyfit(sqrtP(end-nPtLinReg:end),eprI(end-nPtLinReg:end),1);
+coeff = polyfit(sqrtP(end-nPtLinReg+1:end),eprI(end-nPtLinReg+1:end),1);
 linReg = polyval(coeff,sqrtP);
 
 ylim = get(gca,'YLim');
