@@ -27,9 +27,9 @@ function dataset = cwEPRdatasetCreate(varargin)
 %
 % SEE ALSO: commonDatasetCreate, commonHistoryCreate, cwEPRhistoryCreate
 
-% Copyright (c) 2015, Till Biskup
+% Copyright (c) 2015-16, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2015-11-18
+% 2016-01-18
 
 % Assign output parameter
 dataset = struct();
@@ -100,7 +100,7 @@ dataset.parameters = struct(...
 % Join common and cwEPR dataset structure
 dataset = commonStructCopy(dataset,EPRdataset);
 
-dataset.format = struct(...
+dataset.format(end+1) = struct(...
     'type','cwEPR dataset',...
     'version',structureVersion ...
     );
