@@ -35,7 +35,7 @@ try
     p.FunctionName = mfilename; % Include function name in error messages
     p.KeepUnmatched = true;     % Enable errors on unmatched arguments
     p.StructExpand = true;      % Enable passing arguments in a structure
-    p.addRequired('filename', @ischar);
+    p.addRequired('filename',@ischar);
     p.addRequired('struct', @isstruct);
     p.parse(filename,struct);
 catch exception
