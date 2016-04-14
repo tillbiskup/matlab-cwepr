@@ -16,7 +16,7 @@ function dataset = cwEPRsubstractBaseline(dataset, varargin)
 %
 %        kind    - string
 %                  Kind of Baseline                               
-%                  eather polynomial or exponential 
+%                  either polynomial or exponential 
 %                  Default: polynomial
 %
 %        degree  - scalar
@@ -26,9 +26,9 @@ function dataset = cwEPRsubstractBaseline(dataset, varargin)
 
 % See also: common_fitPolynomial
 
-% Copyright (c) 2015, Till Biskup
+% Copyright (c) 2015-16, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2015-11-10
+% 2016-04-14
 
 
 kindcell = {'polynomial','exponential'};
