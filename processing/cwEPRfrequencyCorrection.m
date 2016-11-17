@@ -15,9 +15,9 @@ function dataset = cwEPRfrequencyCorrection(dataset,varargin)
 %                  Frequency in GHz to which correction shall take place.
 %                  Default: 9.70 GHz
  
-% Copyright (c) 2015, Till Biskup
+% Copyright (c) 2015-16, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2015-11-18
+% 2016-11-17
 
 try
     % Parse input arguments using the inputParser functionality
@@ -42,7 +42,7 @@ mTold = dataset.axes.data(1).values;
 
 % Read out MWfrequency in GHz
 if ~strcmpi(dataset.parameters.bridge.MWfrequency.unit,'GHz') 
-  disp('Please proviede your microwave frequendy in GHz');
+  disp('Please provide your microwave frequency in GHz');
   return
 end
 % Conversion to Hz
