@@ -1,4 +1,4 @@
-function dataset = cwEPRsubstractBaseline(dataset, varargin)
+function dataset = cwEPRsubtractBaseline(dataset, varargin)
 % CWEPRSUBSTRACTBASELINE substract for the moment a polynomial baseline 
 % from a cw-EPR spectrum and writes history
 %
@@ -28,7 +28,7 @@ function dataset = cwEPRsubstractBaseline(dataset, varargin)
 
 % Copyright (c) 2015-16, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2016-04-14
+% 2016-11-17
 
 
 kindcell = {'polynomial','exponential'};
