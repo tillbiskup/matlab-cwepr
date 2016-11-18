@@ -30,9 +30,9 @@ function table = cwEPRdatasetMappingTableV0_1_3
 
 % Copyright (c) 2014-16, Till Biskup
 % Copyright (c) 2015-2016, Deborah Meyer
-% 2016-06-23
+% 2016-11-18
 
-table = cwEPRdatasetMappingTableV0_1_2;
-
+commonTable = commonDatasetMappingTableV0_2_0;
+table = [ commonTable; cwEPRdatasetMappingTableV0_1_2 ];
 
 end
