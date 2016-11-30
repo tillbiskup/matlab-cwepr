@@ -23,8 +23,8 @@ function cwEPRpowerSweepAnalysisCLI
 %
 % Acknowledgements: The plot of step three was an idea of Lorenz Heidinger.
 
-% Copyright (c) 2015, Till Biskup
-% 2015-11-24
+% Copyright (c) 2015-16, Till Biskup
+% 2016-11-30
 
 % Welcome message with a bit of explanation to guide the user
 welcomeMessage = {...
@@ -55,14 +55,16 @@ cellfun(@(x)fprintf('  %s\n',x),welcomeMessage);
 % 1st step: Ask user for data
 fileName = '';
 while isempty(fileName)
-    fileName = cliInput('Filename of file containing powerSweep data');
+    fileName = CLIinput('Filename of file containing powerSweep data');
     data = cwEPRimport(fileName);
     if isempty(data.data)
         fileName = '';
     end
 end
 
-%data = EPRbrukerSPCimport(fileName);
+% Remove extension from filename for further use (saving plot figures)
+[filePath,fileBasename,~] = fileparts(fileName);
+fileName = fullfile(filePath,fileBasename);
 
 % 2nd step: Plot data and ask user for field index
 figure();
@@ -73,7 +75,7 @@ ylabel('{\it signal intensity}');
 
 [~,fieldIndex] = max(data.data(1,:));
 
-fieldIndex = cliInput(...
+fieldIndex = CLIinput(...
     'Field index used for further analysis',...
     'numeric',true,'default',num2str(fieldIndex));
 
@@ -82,11 +84,11 @@ fieldIndex = cliInput(...
 sqrtP = sqrt(EPRdB2mW(data.axes.data(2).values));
 eprI = data.data(:,fieldIndex)';
 figure();
-plot(sqrtP,eprI,'d-');
+plot(sqrtP,eprI,'kd-');
 xlabel('sqrt({\itP}) / mW')
 ylabel('{\it signal intensity}');
 
-nPtLinReg = cliInput(...
+nPtLinReg = CLIinput(...
     'Number of points for linear regression',...
     'numeric',true,'default','5');
 
@@ -104,7 +106,7 @@ xlabel('sqrt({\itP}) / mW')
 ylabel('{\it signal intensity}');
 
 figure();
-plot(data.axes.data(2).values,linReg-eprI,'d-');
+plot(data.axes.data(2).values,linReg-eprI,'kd-');
 xlim = get(gca,'XLim');
 hold on; 
 plot([0 50],[0 0],'k:'); 
@@ -113,5 +115,7 @@ set(gca,'XLim',xlim);
 xlabel('{\it MW attenuation} / dB')
 ylabel('{\it deviation from linear regression}');
 set(gca,'XLim',[min(data.axes.data(2).values)-1 max(data.axes.data(2).values)+1]);
+
+commonFigureExport(gcf,[fileName '-linRegDeviation']);
 
 end
