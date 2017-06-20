@@ -104,7 +104,7 @@ end
 dataset = rmfield(dataset,'vendor');
 
 % Perform receiver gain normalisation
-if p.Results.RGnorm
+if p.Results.RGnorm && ~isnan(dataset.parameters.signalChannel.receiverGain)
     dataset = cwEPRnormaliseReceiverGain(dataset);
 end
 
