@@ -1,4 +1,4 @@
-function dataset = cwEPRsubtractDataset(dataset,toSubtract)
+function dataset = cwEPRsubtractDataset(dataset,toSubtract,varargin)
 % CWEPRSUBTRACTDATASET Subtract data of one dataset from other dataset
 % without saving the complete subtracted dataset, but just the subtracted
 % vector.
@@ -28,7 +28,8 @@ try
     p.StructExpand = true;      % Enable passing arguments in a structure
     p.addRequired('dataset',@(x)isstruct(x));
     p.addRequired('tosubtract',@(x)isstruct(x));
-    p.parse(dataset,toSubtract);
+    p.addParameter('debug',false,@(x)islogical(x));
+    p.parse(dataset,toSubtract,varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
     return;
@@ -42,6 +43,11 @@ toSubtractVector = interp1(...
     toSubtract.data,...
     dataset.axes.data(1).values,...
     'linear',mean(toSubtract.data));
+
+if p.Results.debug
+    figure(); plot(dataset.axes.data(1).values,dataset.data(1,:),'k-',...
+        toSubtract.axes.data(1).values,toSubtract.data(1,:),'r-')
+end
 
 % Perform subtraction
 dataset = cwEPRsubtract(dataset,toSubtractVector);
