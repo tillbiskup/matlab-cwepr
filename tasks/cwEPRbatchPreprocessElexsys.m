@@ -1,7 +1,7 @@
 function cwEPRbatchPreprocessElexsys
 % CWEPRBATCHPREPROCESSELEXSYS Import ELEXSYS raw data, perform field
 % correction (with measured LiLiF standard), frequency correction (default:
-% 9.7 GHz), save as cwEPR datasets, plot and export figures (both PDF and
+% 9.8 GHz), save as cwEPR datasets, plot and export figures (both PDF and
 % PNG), create dokuwiki block for including the figure in electronic lab
 % book.
 %
@@ -21,13 +21,13 @@ function cwEPRbatchPreprocessElexsys
 %   YYYYMMDD-<filename>.txt  - caption for plot for dokuwiki lab book
 %
 % The template used for creating the caption for the dokuwiki lab book is
-% named "dwLabbook1DFigureCaption.txt" and located in the template
+% named "dwLabbook1DFigureCaption-Elexsys.txt" and located in the template
 % directory of your cwEPR toolbox installation. You may change it according
 % to your purposes.
 %
 % Limitations:
 %
-% Looks for files with spc extension (case INsensitive) and performs
+% Looks for files with DTA extension (case INsensitive) and performs
 % processing steps for all these files excluding those with "lilif" 
 % (case INsensitive) in name.
 %
@@ -36,7 +36,7 @@ function cwEPRbatchPreprocessElexsys
 % Relies on common toolbox and ImageMagick installation (for PNG export).
 
 % Copyright (c) 2016-18, Till Biskup
-% 2018-02-16
+% 2018-07-01
 
 % Default value for field and frequency correction
 DeltaB0 = 0;
@@ -58,7 +58,7 @@ for dtaFile = 1:length(dtaFileNames)
     
     [~,filename,~] = fileparts(dtaFileNames{dtaFile});
     
-    dataset = cwEPRimport(filename); 
+    dataset = cwEPRimport(filename,'RCnorm',false,'SCnorm',false); 
     dataset = cwEPRfieldCorrection(dataset,DeltaB0);
     dataset = cwEPRfrequencyCorrection(dataset,MWfrequency);
     dataset = subtractZeroOrderBaseline(dataset);
