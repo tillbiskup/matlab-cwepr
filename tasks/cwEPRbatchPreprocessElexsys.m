@@ -40,7 +40,7 @@ function cwEPRbatchPreprocessElexsys
 
 % Default value for field and frequency correction
 DeltaB0 = 0;
-MWfrequency = 9.7; % in GHz
+MWfrequency = 9.8; % in GHz
 
 % Lookup lilif file - assuming lilif in name (case INsensitive) - and get
 % DeltaB0 value if successful.
@@ -61,6 +61,7 @@ for dtaFile = 1:length(dtaFileNames)
     dataset = cwEPRimport(filename); 
     dataset = cwEPRfieldCorrection(dataset,DeltaB0);
     dataset = cwEPRfrequencyCorrection(dataset,MWfrequency);
+    dataset = subtractZeroOrderBaseline(dataset);
     cwEPRsave(filename,dataset);
     
     commonPlot(dataset)
@@ -79,12 +80,19 @@ end
 end
 
 
+function dataset = subtractZeroOrderBaseline(dataset)
+
+dataset.data = dataset.data-mean(dataset.data([1:50,end-50:end]));
+
+end
+
+
 function createDokuwikiCaption(dataset,filename)
 
 dateString = datestr(datenum(dataset.parameters.date.start,31),'yyyymmdd');
 dataset.filename = [dateString '-' filename];
 
-templateFile = cwEPRtemplateFilepath('dwLabbook1DFigureCaption.txt');
+templateFile = cwEPRtemplateFilepath('dwLabbook1DFigureCaption-Elexsys.txt');
 
 t = tpl();
 t.setDelimiter({'<<','>>'});

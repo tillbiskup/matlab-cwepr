@@ -1,0 +1,5 @@
+<figure>
+{{.:<<@filename>>.png?nolink}}
+<caption>**cwEPR-Signal von <<@sample.name>> (Proben-Nr. [[sa><<@sample.id>>]]) bei <<@parameters.temperature.value|f=i>> <<@parameters.temperature.unit>>.** <<@parameters.signalChannel.accumulations|f=i>> Akkumulationen; MW: <<@parameters.bridge.attenuation.value|f=i>> <<@parameters.bridge.attenuation.unit>>, <<@parameters.bridge.power.value>> <<@parameters.bridge.power.unit>>; Modulationsfrequenz: <<@parameters.signalChannel.modulation.frequency.value|f=i>> <<@parameters.signalChannel.modulation.frequency.unit>>; Modulationsamplitude: <<@parameters.signalChannel.modulation.amplitude.value>> <<@parameters.signalChannel.modulation.amplitude.unit>>; conversion time: <<@parameters.signalChannel.modulation.conversionTime.value>> <<@parameters.signalChannel.modulation.conversionTime.unit>>; Mikrowellenfrequenz: <<@parameters.bridge.MWfrequency.value|f=6.4f>> <<@parameters.bridge.MWfrequency.unit>>. {{.:<<@filename>>.pdf|Bild als PDF-Datei}}</caption>
+</figure>
+
