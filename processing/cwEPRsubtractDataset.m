@@ -17,8 +17,8 @@ function dataset = cwEPRsubtractDataset(dataset,toSubtract,varargin)
 %   toSubtract - struct
 %                cwEPR dataset
 
-% Copyright (c) 2016, Till Biskup
-% 2016-11-17
+% Copyright (c) 2016-17, Till Biskup
+% 2017-08-22
 
 try
     % Parse input arguments using the inputParser functionality
