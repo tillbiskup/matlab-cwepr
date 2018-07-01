@@ -15,9 +15,9 @@ function dataset = cwEPRfrequencyCorrection(dataset,varargin)
 %                  Frequency in GHz to which correction shall take place.
 %                  Default: 9.70 GHz
  
-% Copyright (c) 2015-16, Till Biskup
+% Copyright (c) 2015-18, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2016-11-17
+% 2018-02-16
 
 try
     % Parse input arguments using the inputParser functionality
@@ -58,9 +58,9 @@ mTnewNotEquidistant = EPRg2mT(g, fqnew);
 % Do the interpolation thingy
 mTnewEquidistant = linspace(mTnewNotEquidistant(1),...
     mTnewNotEquidistant(end),length(mTnewNotEquidistant)); 
-for slice = 1:size(dataset.data,1)
-    dataset.data(slice,:) = interp1(mTnewNotEquidistant,...
-        dataset.data(slice,:),mTnewEquidistant,'linear');
+for slice = 1:size(dataset.data,2)
+    dataset.data(:,slice) = interp1(mTnewNotEquidistant,...
+        dataset.data(:,slice),mTnewEquidistant,'linear');
 end
 
 % Create and fill History
