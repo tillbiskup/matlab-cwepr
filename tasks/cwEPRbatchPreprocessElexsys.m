@@ -64,7 +64,7 @@ for dtaFile = 1:length(dtaFileNames)
     dataset = subtractZeroOrderBaseline(dataset);
     cwEPRsave(filename,dataset);
     
-    commonPlot(dataset)
+    commonPlot(dataset,'title','none')
     commonFigureExport(gcf,filename);
     pdf2bitmap(filename);
     
