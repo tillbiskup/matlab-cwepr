@@ -26,9 +26,11 @@ else
     range = [];
 end
 
-if range && ~length(range) == 2
-    warning(['(EE) ' 'Range must be two-element vector']);
-    return
+if range 
+    if  ~length(range) == 2
+        warning(['(EE) ' 'Range must be two-element vector']);
+        return
+    end
 end
 
 if range
@@ -36,9 +38,9 @@ if range
         dataset.axes.data(1).values,...
         1:length(dataset.axes.data(1).values),range,...
         'nearest');
-    intensity = cumtrapz(dataset.data(range(1):range(2)));
+    intensity = sum(dataset.data(range(1):range(2)));
 else
-    intensity = cumtrapz(dataset.data);
+    intensity = sum(dataset.data);
 end
 
 end
