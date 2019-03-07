@@ -35,8 +35,8 @@ function cwEPRbatchPreprocessElexsys
 %
 % Relies on common toolbox and ImageMagick installation (for PNG export).
 
-% Copyright (c) 2016-18, Till Biskup
-% 2018-07-01
+% Copyright (c) 2016-19, Till Biskup
+% 2019-03-06
 
 % Default value for field and frequency correction
 DeltaB0 = 0;
@@ -45,9 +45,13 @@ MWfrequency = 9.8; % in GHz
 % Lookup lilif file - assuming lilif in name (case INsensitive) - and get
 % DeltaB0 value if successful.
 lilifFilename = commonDir('*lilif*DTA');
-
+if isempty(lilifFilename)
+    lilifFilename = commonDir('*LiLiF*DTA');
+end
+    
 if ~isempty(lilifFilename)
     DeltaB0 = cwEPR_fieldStandardLiLiF(lilifFilename{1});
+    fprintf('\nField correction with DeltaB0 = %f mT\n\n', DeltaB0);
 end
 
 % Get filenames of spectra and remove lilif filename(s) from cell array

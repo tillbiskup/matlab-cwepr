@@ -51,22 +51,27 @@ end
 
 
 % Define Fit Area
-area = common_fitAreaDefine(dataset);
+%area = common_fitAreaDefine(dataset);
+B0=dataset.axes.data(1).values;
+areaIndices = [1:400 length(B0)-400:length(B0)];
+area = zeros(1,length(B0));
+area(areaIndices) = 1;
+area = logical(area);
+
+area = reshape(area,size(dataset.data));
 
 % Perform Polynomal fit
 if strcmpi(p.Results.kind,'polynomial')
     [coefficients, resSumOfSquares] = ...
         common_fitPolynomial(dataset,area,'plot',false,'degrees',[p.Results.degree]);
-    
     coeffvector = cell2mat(coefficients);
     
     % Create polynomial Baseline
     baseline = common_computeBaseline(dataset,coeffvector,'degree',p.Results.degree);
-    
 end
  
 % Subtract Baseline
-dataset.data = dataset.data - baseline;
+dataset.data = dataset.data - baseline(:);
 
 % Write Parameters into History
 history = cwEPRhistoryCreate;
