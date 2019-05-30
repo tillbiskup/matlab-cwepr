@@ -1,4 +1,4 @@
-function cwEPRbatchPreprocessElexsys
+function cwEPRbatchPreprocessElexsys(varargin)
 % CWEPRBATCHPREPROCESSELEXSYS Import ELEXSYS raw data, perform field
 % correction (with measured LiLiF standard), frequency correction (default:
 % 9.8 GHz), save as cwEPR datasets, plot and export figures (both PDF and
@@ -36,11 +36,14 @@ function cwEPRbatchPreprocessElexsys
 % Relies on common toolbox and ImageMagick installation (for PNG export).
 
 % Copyright (c) 2016-19, Till Biskup
-% 2019-03-06
+% 2019-05-27
 
 % Default value for field and frequency correction
 DeltaB0 = 0;
 MWfrequency = 9.8; % in GHz
+if nargin
+    MWfrequency = varargin{1};
+end
 
 % Lookup lilif file - assuming lilif in name (case INsensitive) - and get
 % DeltaB0 value if successful.
@@ -50,7 +53,8 @@ if isempty(lilifFilename)
 end
     
 if ~isempty(lilifFilename)
-    DeltaB0 = cwEPR_fieldStandardLiLiF(lilifFilename{1});
+    fprintf('\nLiLiF measurement: %s\n', lilifFilename{end})
+    DeltaB0 = cwEPR_fieldStandardLiLiF(lilifFilename{end});
     fprintf('\nField correction with DeltaB0 = %f mT\n\n', DeltaB0);
 end
 
