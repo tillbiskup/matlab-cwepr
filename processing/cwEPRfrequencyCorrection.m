@@ -15,9 +15,9 @@ function dataset = cwEPRfrequencyCorrection(dataset,varargin)
 %                  Frequency in GHz to which correction shall take place.
 %                  Default: 9.70 GHz
  
-% Copyright (c) 2015-18, Till Biskup
+% Copyright (c) 2015-, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2018-02-16
+% 2019-10-17
 
 try
     % Parse input arguments using the inputParser functionality

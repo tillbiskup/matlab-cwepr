@@ -41,9 +41,9 @@ function dataset = cwEPRimport(filename,varargin)
 %
 % SEE ALSO: EPRimport
 
-% Copyright (c) 2015, Till Biskup
+% Copyright (c) 2015-, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2015-11-23
+% 2019-10-17
 
 % Create dataset
 dataset = cwEPRdatasetCreate;
