@@ -40,8 +40,8 @@ try
     p.KeepUnmatched = true;     % Enable errors on unmatched arguments
     p.StructExpand = true;      % Enable passing arguments in a structure
     p.addRequired('dataset', @isstruct);
-    p.addParamValue('kind','polynomial',@(x)any(strcmpi(x,kindcell)));
-    p.addParamValue('degree',2,@isscalar);
+    p.addParameter('kind','polynomial',@(x)any(strcmpi(x,kindcell)));
+    p.addParameter('degree',2,@isscalar);
     p.parse(dataset,varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
