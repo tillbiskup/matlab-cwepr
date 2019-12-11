@@ -35,7 +35,7 @@ function cwEPRbatchPreprocessMagnettech(varargin)
 % Relies on common toolbox and ImageMagick installation (for PNG export).
 
 % Copyright (c) 2019, Till Biskup
-% 2019-08-29
+% 2019-12-11
 
 % Default value for field and frequency correction
 DeltaB0 = 0;
@@ -45,13 +45,21 @@ if nargin
 end
 
 % Get filenames of spectra
-dtaFileNames = commonDir('*info');
+infoFileNames = commonDir('*info');
 
-for dtaFile = 1:length(dtaFileNames)
+for infoFile = 1:length(infoFileNames)
     
-    [~,filename,~] = fileparts(dtaFileNames{dtaFile});
+    fprintf('Current (info) file: %s\n', infoFileNames{infoFile});
     
-    dataset = cwEPRimport([filename '.xml'],'RCnorm',false,'SCnorm',false); 
+    [~,filename,~] = fileparts(infoFileNames{infoFile});
+    
+    xmlFilename = [filename '.xml'];
+    if ~exist(xmlFilename,'file')
+        fprintf('\t...skipped\n');
+        continue
+    end
+    
+    dataset = cwEPRimport(xmlFilename,'RCnorm',false,'SCnorm',false); 
     dataset = cwEPRfrequencyCorrection(dataset,MWfrequency);
     dataset = subtractZeroOrderBaseline(dataset);
     cwEPRsave(filename,dataset);
