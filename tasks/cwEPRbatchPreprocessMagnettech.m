@@ -55,7 +55,7 @@ for infoFile = 1:length(infoFileNames)
     
     xmlFilename = [filename '.xml'];
     if ~exist(xmlFilename,'file')
-        fprintf('\t...skipped\n');
+        fprintf('\t...skipped: no corresponding data file.\n');
         continue
     end
     
