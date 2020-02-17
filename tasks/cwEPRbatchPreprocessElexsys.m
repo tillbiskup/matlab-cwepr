@@ -35,8 +35,8 @@ function cwEPRbatchPreprocessElexsys(varargin)
 %
 % Relies on common toolbox and ImageMagick installation (for PNG export).
 
-% Copyright (c) 2016-19, Till Biskup
-% 2019-05-27
+% Copyright (c) 2016-20, Till Biskup
+% 2020-02-13
 
 % Default value for field and frequency correction
 DeltaB0 = 0;
@@ -65,6 +65,7 @@ dtaFileNames(~cellfun('isempty',strfind(lower(dtaFileNames),'lilif'))) = [];
 for dtaFile = 1:length(dtaFileNames)
     
     [~,filename,~] = fileparts(dtaFileNames{dtaFile});
+    fprintf('Currently processed file: %s\n', filename);
     
     dataset = cwEPRimport(filename,'RCnorm',false,'SCnorm',false); 
     dataset = cwEPRfieldCorrection(dataset,DeltaB0);
