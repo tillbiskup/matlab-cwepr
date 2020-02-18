@@ -30,7 +30,7 @@ catch exception
     return;
 end
 
-if ~is1Ddata(dataset)
+if ~is_1D_data(dataset)
     error('Currently, only 1D datasets are supported.');
 end
 
@@ -42,7 +42,7 @@ commonTextFileWrite(filename, cellstr(num2str(to_export)));
 
 end
 
-function TF = is1Ddata(dataset)
+function TF = is_1D_data(dataset)
 
 TF = not(all(size(dataset.data) > 1));
 
