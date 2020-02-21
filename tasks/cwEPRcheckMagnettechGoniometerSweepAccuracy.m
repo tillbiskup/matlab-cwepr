@@ -39,7 +39,10 @@ commonFigureExport(gcf, 'angular-pattern.pdf', ...
     'PaperSize', [16, 16] ...
 );
 
+angle_step_size = 180/(length(real_angles)-1);
+
 figure(101)
+subplot(2,1,1);
 plot(set_angles,real_angles-set_angles');
 hold on
 plot([-1, 181], [0, 0], 'k:');
@@ -49,11 +52,25 @@ set(gca, ...
     'TickDir', 'out', ...
     'Box', 'off' ...
     );
-xlabel('{\itangle} / degree');
-ylabel('{\itangle difference} / degree');
-title(sprintf('Step size: %3.1f degree', 180/(length(real_angles)-1)));
+xlabel('{\itexpected angle} / degree');
+ylabel('{\itdifference} / degree');
+
+subplot(2,1,2);
+plot(set_angles(2:end),diff(real_angles)-angle_step_size);
+hold on
+plot([-1, 181], [0, 0], 'k:');
+hold off
+set(gca, ...
+    'XLim', [-1, 181], ...
+    'TickDir', 'out', ...
+    'Box', 'off' ...
+    );
+xlabel('{\itexpected angle} / degree');
+ylabel('{\itstep size error} / degree');
+title(sprintf('Step size: %3.1f degree', angle_step_size));
 
 commonFigureExport(gcf, 'angle-deviation.pdf', ...
+    'PaperSize', [16, 16], ...
     'paperSizeCorrection', [-0.6 0.2 1.8 0] ...
 );
 
