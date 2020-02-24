@@ -21,7 +21,7 @@ function dataset = cwEPRproject(dataset,varargin)
 %             Default: 2 (aka: y axis)
 
 % Copyright (c) 2020, Till Biskup
-% 2020-02-17
+% 2020-02-24
 
 try
     % Parse input arguments using the inputParser functionality
@@ -39,6 +39,8 @@ end
 
 number_of_traces = size(dataset.data, p.Results.axis);
 dataset.data = sum(dataset.data, p.Results.axis) / number_of_traces;
+dataset.axes.data(2) = dataset.axes.data(3);
+dataset.axes.data(3) = [];
 
 % Write history
 history = cwEPRhistoryCreate();
