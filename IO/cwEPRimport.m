@@ -43,7 +43,7 @@ function dataset = cwEPRimport(filename,varargin)
 
 % Copyright (c) 2015-, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2019-10-17
+% 2020-03-122
 
 % Create dataset
 dataset = cwEPRdatasetCreate;
@@ -91,17 +91,19 @@ if p.Results.loadInfo
     end 
 end
 
-% Map vendor parameters to dataset structure, thus overwriting info file
-% values, if they were loaded.
-mappingTableName = ['cwEPRmappingTable' dataset.vendor.fileFormat];
-if exist(mappingTableName,'file')
-    mappingFun = str2func(mappingTableName);
-    mapping = mappingFun();
-    dataset = commonStructMap(dataset,dataset.vendor.parameters,mapping);
+if isfield(dataset, 'vendor')
+    % Map vendor parameters to dataset structure, thus overwriting info file
+    % values, if they were loaded.
+    mappingTableName = ['cwEPRmappingTable' dataset.vendor.fileFormat];
+    if exist(mappingTableName,'file')
+        mappingFun = str2func(mappingTableName);
+        mapping = mappingFun();
+        dataset = commonStructMap(dataset,dataset.vendor.parameters,mapping);
+    end
+    
+    % Remove vendor fields
+    dataset = rmfield(dataset,'vendor');
 end
-
-% Remove vendor fields
-dataset = rmfield(dataset,'vendor');
 
 % Perform receiver gain normalisation
 if p.Results.RGnorm && ~isnan(dataset.parameters.signalChannel.receiverGain)
