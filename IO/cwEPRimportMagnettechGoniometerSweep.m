@@ -38,6 +38,8 @@ FIELD_PRECISION = 1e-3; % in mT
 [data, angles] = read_data_files(data_filenames, fpath);
 dataset = create_dataset_by_interp(data, FIELD_PRECISION, angles);
 
+dataset = apply_infofile_contents(dataset, filename);
+
 % Just for debugging purposes, alternative way of creating a dataset
 % dataset2 = create_dataset_by_cutoff(data, angles);
 
@@ -160,5 +162,19 @@ function B0_corr = B0_frequency_correction(B0, MW_freq_in, MW_freq_out)
 
 g = EPRmT2g(B0,MW_freq_in);
 B0_corr = EPRg2mT(g, MW_freq_out);
+
+end
+
+function dataset = apply_infofile_contents(dataset, filename)
+
+[fpath, fname, ~] = fileparts(filename);
+infoFileName = fullfile(fpath, [fname '.info']);
+
+if exist(infoFileName,'file')
+    [info,infoVersion] = cwEPRinfofileLoad(infoFileName);
+    dataset = cwEPRdatasetMapInfo(dataset,info,infoVersion);
+else
+    warning('Info file %s not found - not mapped',infoFileName);
+end
 
 end
