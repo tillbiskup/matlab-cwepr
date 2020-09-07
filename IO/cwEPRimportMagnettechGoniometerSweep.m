@@ -30,7 +30,7 @@ function dataset = cwEPRimportMagnettechGoniometerSweep(filename)
 % sensibility of using the goniometer with this spectrometer.
 
 % Copyright (c) 2020, Till Biskup
-% 2020-02-19
+% 2020-09-07
 
 FIELD_PRECISION = 1e-3; % in mT
 
@@ -73,6 +73,10 @@ for k = 1:n_data_files
     data{k}.data = int;
     data{k}.parameters = par;
     angles(k) = par.GonAngle;
+    % Special case for goniometer angle gone wrong... particularly 0 deg
+    if angles(k) > 359.5
+        angles(k) = 0;
+    end
 end
 
 % Sort data according to angle read from parameters
