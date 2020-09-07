@@ -26,6 +26,11 @@ function cwEPRplotRotationPattern(dataset, varargin)
 %       Title for figure(s), including summary figure using several axes
 %
 %       Uses MATLAB's sgtitle function introduced as late as R2018b
+%
+%   figure_offset - scalar
+%       Starting number of the figures to use for plotting
+%
+%       Default: 100
 
 % Copyright (c) 2020, Till Biskup
 % 2020-09-07
@@ -40,6 +45,7 @@ try
     p.addParameter('summaryOnly', true, @islogical);
     p.addParameter('xrange', [], @isvector);
     p.addParameter('title', '', @ischar);
+    p.addParameter('figure_offset', 100, @isscalar);
     p.parse(dataset, varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
@@ -49,7 +55,7 @@ end
 parameters = p.Results;
 
 % Some settings
-figureOffset = 100;
+figureOffset = parameters.figure_offset;
 
 % Get axes and data
 B0 = dataset.axes.data(1).values; % magnetic field in mT
