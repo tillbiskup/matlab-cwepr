@@ -31,9 +31,14 @@ function cwEPRplotRotationPattern(dataset, varargin)
 %       Starting number of the figures to use for plotting
 %
 %       Default: 100
+%
+%   highlight_angles - vector
+%       List of angles to be highlighted (by dashed line)
+%
+%       Default: empty list
 
 % Copyright (c) 2020, Till Biskup
-% 2020-09-07
+% 2020-10-01
 
 try
     % Parse input arguments using the inputParser functionality
@@ -46,6 +51,7 @@ try
     p.addParameter('xrange', [], @isvector);
     p.addParameter('title', '', @ischar);
     p.addParameter('figure_offset', 100, @isscalar);
+    p.addParameter('highlight_angles', [], @isvector);
     p.parse(dataset, varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
@@ -143,6 +149,14 @@ set(gca, ...
 xlabel('{\itmagnetic field} / mT');
 ylabel('{\itangle} / degree');
 
+if ~isempty(parameters.highlight_angles)
+    hold on;
+    for highlight_angle = parameters.highlight_angles
+        plot(gca, xrange, [highlight_angle, highlight_angle], 'k:');
+    end
+    hold off;
+end
+
 subplot(2, 2, 3)
 imagesc(B0, angle, data')
 % images have coordinate origin in the top left corner
@@ -157,6 +171,14 @@ set(gca, ...
     );
 xlabel('{\itmagnetic field} / mT');
 ylabel('{\itangle} / degree');
+
+if ~isempty(parameters.highlight_angles)
+    hold on;
+    for highlight_angle = parameters.highlight_angles
+        plot(gca, xrange, [highlight_angle, highlight_angle], 'k:');
+    end
+    hold off;
+end
 
 subplot(2, 2, [2, 4])
 offset = 0;

@@ -26,9 +26,9 @@ function dataset = cwEPRsubtractBaseline(dataset, varargin)
 
 % See also: common_fitPolynomial
 
-% Copyright (c) 2015-16, Till Biskup
+% Copyright (c) 2015-20, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2016-11-17
+% 2020-10-01
 
 
 kindcell = {'polynomial','exponential'};
@@ -58,49 +58,35 @@ area = zeros(1,length(B0));
 area(areaIndices) = 1;
 area = logical(area);
 
-area = reshape(area,size(dataset.data));
+if isscalar(dataset.data)
+    area = reshape(area,size(dataset.data));
+end
 
 % Perform Polynomal fit
 if strcmpi(p.Results.kind,'polynomial')
-    [coefficients, resSumOfSquares] = ...
-        common_fitPolynomial(dataset,area,'plot',false,'degrees',[p.Results.degree]);
+    [coefficients, ~] = common_fitPolynomial(...
+        dataset,area,'plot',false,'degrees',[p.Results.degree]);
     coeffvector = cell2mat(coefficients);
+    coeffvector = reshape(coeffvector, [], numel(coefficients));
     
     % Create polynomial Baseline
-    baseline = common_computeBaseline(dataset,coeffvector,'degree',p.Results.degree);
+    baseline = common_computeBaseline(...
+        dataset,coeffvector,'degree',p.Results.degree);
 end
- 
+
 % Subtract Baseline
-dataset.data = dataset.data - baseline(:);
+if isscalar(dataset.data)
+    dataset.data = dataset.data - baseline(:);
+else
+    dataset.data = dataset.data - baseline;
+end
 
 % Write Parameters into History
 history = cwEPRhistoryCreate;
 history.functionname = mfilename();
-history.kind = 'BaselineSubstraction';
-history.parameters = {p.Results.kind, area, p.Results.degree, coeffvector};
-
-
-areIndexnum = [];
-j=1;
-% 
-for k=1:length(area)
- areaIndex(k) =area(k);
-if k>1&&areaIndex(k-1) ~= areaIndex(k)
-    areIndexnum(j)  = k;
-    j=j+1;
-end
-
- %0 areaField = 
-end
-
-%das= areIndexnum
-% Write Report stuff
-history.tplVariables.Kind = p.Results.kind;
-history.tplVariables.Degree = p.Results.degree;
-history.tplVariables.Coefficients = coeffvector;
-history.tplVariables.resSumOfSquares = resSumOfSquares;
-%history.tplVariables.areaIndex = areaIndex;
-%history.tplVariables.areaField = areaField;
+history.kind = 'BaselineSubtraction';
+history.parameters = {...
+    p.Results.kind, area, p.Results.degree, coeffvector};
 
 dataset.history{end+1} = history;
 
