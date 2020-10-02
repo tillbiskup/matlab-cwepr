@@ -22,6 +22,11 @@ function dataset = cwEPRsubtractBaseline(dataset, varargin)
 %        degree  - scalar
 %                  degree of polynomial or exponential 
 %                  Default: 2
+%
+%        percent - scalar
+%                  percentage of the x axis used for fitting
+%                  (from both sides)
+%                  Default: 10
 %                            
 
 % See also: common_fitPolynomial
@@ -42,18 +47,18 @@ try
     p.addRequired('dataset', @isstruct);
     p.addParameter('kind','polynomial',@(x)any(strcmpi(x,kindcell)));
     p.addParameter('degree',2,@isscalar);
+    p.addParameter('percent',10,@isscalar);
     p.parse(dataset,varargin{:});
 catch exception
     disp(['(EE) ' exception.message]);
     return;
 end
 
-
-
 % Define Fit Area
 %area = common_fitAreaDefine(dataset);
 B0=dataset.axes.data(1).values;
-areaIndices = [1:400 length(B0)-400:length(B0)];
+areaPart = floor(numel(B0)/10);
+areaIndices = [1:areaPart length(B0)-areaPart:length(B0)];
 area = zeros(1,length(B0));
 area(areaIndices) = 1;
 area = logical(area);
