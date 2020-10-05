@@ -33,7 +33,7 @@ function dataset = cwEPRsubtractBaseline(dataset, varargin)
 
 % Copyright (c) 2015-20, Till Biskup
 % Copyright (c) 2015, Deborah Meyer
-% 2020-10-01
+% 2020-10-05
 
 
 kindcell = {'polynomial','exponential'};
@@ -83,7 +83,7 @@ end
 if isscalar(dataset.data)
     dataset.data = dataset.data - baseline(:);
 else
-    dataset.data = dataset.data - baseline;
+    dataset.data = dataset.data - reshape(baseline, size(dataset.data));
 end
 
 % Write Parameters into History
