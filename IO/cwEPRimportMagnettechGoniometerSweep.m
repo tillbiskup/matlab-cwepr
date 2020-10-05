@@ -30,7 +30,7 @@ function dataset = cwEPRimportMagnettechGoniometerSweep(filename)
 % sensibility of using the goniometer with this spectrometer.
 
 % Copyright (c) 2020, Till Biskup
-% 2020-09-07
+% 2020-10-05
 
 FIELD_PRECISION = 1e-3; % in mT
 
@@ -98,9 +98,14 @@ for k = 1:length(data)
     dataset.data(:, k) = interp1(...
         data{k}.B0, ...
         data{k}.data, ...
-        B0_interpolated ...
+        B0_interpolated, ...
+        'linear', 'extrap' ...
         );
 end
+    
+    if any(any(isnan(dataset.data)))
+        disp('NaN in data!');
+    end
 
 dataset.axes.data(1).values = B0_interpolated;
 dataset.axes.data(2).values = sort(angles);
