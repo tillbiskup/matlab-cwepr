@@ -1,6 +1,10 @@
 function dataset = cwEPRextractSlice(dataset, slice)
 % CWEPREXTRACTSLICE extracts a slice from a 2D dataset
 %
+% The value and unit of the slice are added in brackets to the label of the
+% dataset, thus being automatically displayed in the title and legend,
+% respectively if using commonPlot and commonPlotMultiple.
+%
 % Usage
 %   dataset = cwEPRintregrate(dataset, slice)
 %
