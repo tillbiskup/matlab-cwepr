@@ -13,13 +13,15 @@ function dataset = cwEPRsubtract(dataset,tosubtract)
 %                any vector with same length as dataset.data
 %                            
 
-% Copyright (c) 2016, Till Biskup, Jara Popp, Deborah Meyer
-% 2016-11-10
+% Copyright (c) 2016-20, Till Biskup, Jara Popp, Deborah Meyer
+% 2020-10-06
 
-if ~isequal(size(tosubtract),size(dataset.data))
+if ~isequal(numel(tosubtract),numel(dataset.data))
     disp(['(EE) ' 'vector length not equal to data length']);
     return
 end
+
+tosubtract = reshape(tosubtract, size(dataset.data));
 
 dataset.data = dataset.data-tosubtract;
 
