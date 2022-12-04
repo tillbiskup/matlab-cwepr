@@ -1,5 +1,7 @@
 # cwEPR Toolbox
 
+[![DOI](zenodo.7396037.svg)](https://doi.org/10.5281/zenodo.7396037)
+
 A MATLAB(r) toolbox for preprocessing, display, analysis, and postprocessing of continuous-wave electron spin resonance spectroscopy (in short: cwEPR) data.
 
 This toolbox is the spiritual predecessor of the [cwepr package](https://docs.cwepr.de/) implemented in Python. Each processing and analysis step gets automatically logged with all parameters to ensure reproducibility. Focusses particularly on automating the pre-processing and representation of data.
@@ -31,9 +33,9 @@ Download the toolbox (usually as compressed archive), uncompress (if necessary),
 
 The cwEPR toolbox is free software. However, if you use it for your own research, please cite it accordingly:
 
-  * Till Biskup, Deborah Meyer. cwEPR toolbox (2022). [doi:10.5281/zenodo.xxxxxxx](https://doi.org/10.5281/zenodo.xxxxxxx)
+  * Till Biskup, Deborah Meyer. cwEPR toolbox (2022). [doi:10.5281/zenodo.7396037](https://doi.org/10.5281/zenodo.7396037)
 
-    [![DOI](zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
+    [![DOI](zenodo.7396037.svg)](https://doi.org/10.5281/zenodo.7396037)
 
 
 ## License
