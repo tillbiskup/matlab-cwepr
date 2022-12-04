@@ -27,15 +27,6 @@ This toolbox is the spiritual predecessor of the [cwepr package](https://docs.cw
 Download the toolbox (usually as compressed archive), uncompress (if necessary), start MATLAB(r), change to the folder you have downloaded/uncompressed the toolbox files to, change to the directory `internal` and call the function `cwEPRinstall` from within the MATLAB(r) command line. This should guide you through the installation process (and add, *inter alia*, the toolbox to the MATLAB(r) search path).
 
 
-## How to cite
-
-The cwEPR toolbox is free software. However, if you use it for your own research, please cite it accordingly:
-
-  * Till Biskup, Deborah Meyer. cwEPR toolbox (2022). [doi:10.5281/zenodo.xxxxxxx](https://doi.org/10.5281/zenodo.xxxxxxx)
-
-    [![DOI](zenodo.xxxxxxx.svg)](https://doi.org/10.5281/zenodo.xxxxxxx)
-
-
 ## License
 
 The toolbox is distributed under the GNU Lesser General Public License (LGPL) as published by the Free Software Foundation.
@@ -47,7 +38,7 @@ This ensures both, free availability in source-code form and compatibility with 
 
 * Till Biskup (2015-2022)
 
-    The principal author and main developer of the trEPR toolbox
+    The principal author and main developer of the cwEPR toolbox
 
 * Deborah Meyer (2015-16)
 
