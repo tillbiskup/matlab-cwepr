@@ -49,7 +49,7 @@ This ensures both, free availability in source-code form and compatibility with 
 
 * Till Biskup (2015-2022)
 
-    The principal author and main developer of the trEPR toolbox
+    The principal author and main developer of the cwEPR toolbox
 
 * Deborah Meyer (2015-16)
 
